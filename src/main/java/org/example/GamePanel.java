@@ -2,7 +2,6 @@ package org.example;
 
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel implements Runnable{
     final int screenWidth = 768;
