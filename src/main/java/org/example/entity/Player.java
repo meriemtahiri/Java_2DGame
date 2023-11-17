@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Player extends Entity{
     GamePanel gp;
@@ -27,24 +26,24 @@ public class Player extends Entity{
     public void getPlayerImages(){
 
         try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_up_2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_down_2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_left_2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/boy_right_2.png")));
+            up1 = ImageIO.read(getClass().getResource("/player/boy_up_1.png"));
+            up2 = ImageIO.read(getClass().getResource("/player/boy_up_2.png"));
+            down1 = ImageIO.read(getClass().getResource("/player/boy_down_1.png"));
+            down2 = ImageIO.read(getClass().getResource("/player/boy_down_2.png"));
+            left1 = ImageIO.read(getClass().getResource("/player/boy_left_1.png"));
+            left2 = ImageIO.read(getClass().getResource("/player/boy_left_2.png"));
+            right1 = ImageIO.read(getClass().getResource("/player/boy_right_1.png"));
+            right2 = ImageIO.read(getClass().getResource("/player/boy_right_2.png"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
     public void update(){
-        if(kh.upPressed){ y -= speed; direction="up"; }
-        else if(kh.downPressed){ y += speed; direction="down"; }
-        else if(kh.leftPressed){ x -= speed; direction="left"; }
-        else if(kh.rightPressed){ x += speed; direction="right"; }
+        if(kh.upPressed){ direction="up"; y -= speed; }
+        else if(kh.downPressed){ direction="down"; y += speed; }
+        else if(kh.leftPressed){ direction="left"; x -= speed; }
+        else if(kh.rightPressed){ direction="right"; x += speed; }
     }
     public void draw(Graphics2D g){
         //g.setColor(Color.WHITE);
