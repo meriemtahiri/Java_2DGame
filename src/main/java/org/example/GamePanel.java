@@ -9,10 +9,17 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
     final int screenWidth = 768;
     final int screenHeight = 576;
+    final int maxWorldCol=50;
+    final int maxWorldRow=50;
+    final int WorldWidth=tileSize* maxWorldCol;
+    final int WorldHeight=tileSize*maxWorldRow;
     TileManager tileManager=new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this,keyHandler);
+    public CollisionChecker cChecker=new CollisionChecker(this);
+    public AssetSetter asetter=new assetSetter(this);
+    public Player player = new Player(this,keyHandler);
+    public SuperObject obj[]=new SuperObject[10];
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.BLACK);
@@ -20,6 +27,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
 
+    }
+    public void setupGame(){
+        asetter.setObject();
     }
     public void startGameTread(){
         gameThread = new Thread(this);
@@ -68,6 +78,11 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         tileManager.draw(g2);
+        for(int i=0;i<obj.length;i++){
+            if(obj[i]!=null){
+                obj[i].draw(g2,this)
+            }
+        }
         player.draw(g2);
         g2.dispose();
     }

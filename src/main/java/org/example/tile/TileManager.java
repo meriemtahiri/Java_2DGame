@@ -14,9 +14,9 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
-        mapTileNum = new int[12][16];
+        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImages();
-        readMapFile("/maps/map1.txt");
+        readMapFile("/maps/world01.txt");
     }
     public void getTileImages(){
         try {
@@ -24,8 +24,17 @@ public class TileManager {
             tiles[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass00.png"));
             tiles[1]=new Tile();
             tiles[1].image= ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+            tiles[1].collision=true;
             tiles[2]=new Tile();
             tiles[2].image= ImageIO.read(getClass().getResourceAsStream("/tiles/water00.png"));
+            tiles[2].collision=true;
+            tiles[3]=new Tile();
+            tiles[3].image= ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
+            tiles[4]=new Tile();
+            tiles[4].image= ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+            tiles[4].collision=true;
+            tiles[5]=new Tile();
+            tiles[5].image= ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,16 +56,25 @@ public class TileManager {
 
     }
     public void draw(Graphics2D g){
-        int col, row, x, y;
-        col=row=x=y=0;
-        while (col<16 && row<12){
-            g.drawImage(tiles[mapTileNum[row][col]].image, x, y, 48, 48, null);
-            col++;
-            x+=48;
-            if(col==16){
-                col=0;
-                x=0;
-                row++;
+        int col, row;
+        WorldCol=WorldRow=0;
+        while (WorldCol<gp.maxWordCol  && maxWordRow<gp.maxWordRow){
+            int WorldX=WorldCol +gp.tileSize;
+            int WorldY=WorldRow +gp.tileSize;
+            int screenX=WorldX- gp.player.WorldX+gp.player.screenX;
+            int screenY=WorldY- gp.player.WorldY+gp.player.screenY;
+            if( WorldX +gp.tileSize > gp.player.WordX- gp.player.screenX &&
+                WorldX - gp.tileSize<gp.player.WordX+gp.player.screenX &&
+                WorldY +gp.tileSize> gp.player.WordY- gp.player.screenY &&
+                WorldY - gp.tileSize<gp.player.WordY+gp.player.screenY){
+                g.drawImage(tiles[mapTileNum[WorldRow][WorldCol]].image, screenX, screenY, 48, 48, null);
+            }
+
+            WorldCol++;
+            if(WorldCol==16){
+                WorldCol=0;
+
+                WorldRow++;
                 y+=48;
             }
         }
