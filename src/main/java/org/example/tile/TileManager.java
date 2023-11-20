@@ -8,16 +8,17 @@ import java.io.*;
 
 public class TileManager {
     GamePanel gamePanel;
-    Tile[] tiles;
-    int mapTileNum[][];
+    public Tile[] tiles;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImages();
         readMapFile("/maps/world01.txt");
     }
+
     public void getTileImages(){
         try {
             tiles[0]=new Tile();
@@ -43,40 +44,46 @@ public class TileManager {
         try {
             InputStream is = getClass().getResourceAsStream(path);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                for (int i=0 ; i<12 ; i++){
+                for (int i=0 ; i< gamePanel.maxWorldCol ; i++){
                         String[] num = br.readLine().split(" ");
-                        for (int j=0; j<16 ; j++)
+                        for (int j=0; j<gamePanel.maxWorldRow ; j++)
                             mapTileNum[i][j]= Integer.parseInt(num[j]);
                 }
                 br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
+
+
     public void draw(Graphics2D g){
-        int col, row;
-        WorldCol=WorldRow=0;
-        while (WorldCol<gp.maxWordCol  && maxWordRow<gp.maxWordRow){
-            int WorldX=WorldCol +gp.tileSize;
-            int WorldY=WorldRow +gp.tileSize;
-            int screenX=WorldX- gp.player.WorldX+gp.player.screenX;
-            int screenY=WorldY- gp.player.WorldY+gp.player.screenY;
-            if( WorldX +gp.tileSize > gp.player.WordX- gp.player.screenX &&
-                WorldX - gp.tileSize<gp.player.WordX+gp.player.screenX &&
-                WorldY +gp.tileSize> gp.player.WordY- gp.player.screenY &&
-                WorldY - gp.tileSize<gp.player.WordY+gp.player.screenY){
-                g.drawImage(tiles[mapTileNum[WorldRow][WorldCol]].image, screenX, screenY, 48, 48, null);
-            }
+        int worldCol=0;
+        int worldRow=0;
 
-            WorldCol++;
-            if(WorldCol==16){
-                WorldCol=0;
 
-                WorldRow++;
-                y+=48;
-            }
+        while (worldCol< gamePanel.maxWorldCol  && worldRow<gamePanel.maxWorldRow){
+           int tileNum = mapTileNum[worldCol][worldRow];
+           int worldX = worldCol* gamePanel.tileSize;
+           int worldY = worldRow* gamePanel.tileSize;
+           int screenX= worldX - gamePanel.player.worldX+ gamePanel.player.screenX;
+           int screenY= worldY - gamePanel.player.worldY+ gamePanel.player.screenY;
+           if(worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX &&
+              worldX - gamePanel.tileSize < gamePanel.player.worldX+ gamePanel.player.screenX &&
+              worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY &&
+              worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY
+             ){
+               g.drawImage(tiles[tileNum].image,screenX,screenY,gamePanel.tileSize, gamePanel.screenHeight, null);
+              }
+
+           worldCol++;
+
+           if(worldCol== gamePanel.maxWorldCol){
+               worldCol =0;
+               worldRow++;
+
+           }
+
+
         }
     }
 }
