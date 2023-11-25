@@ -1,40 +1,54 @@
 package org.example;
 
 import org.example.entity.Player;
+import org.example.object.SuperObject;
 import org.example.tile.TileManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
-    final int screenWidth = 768;
-    final int screenHeight = 576;
-    final int maxWorldCol=50;
-    final int maxWorldRow=50;
-    final int WorldWidth=tileSize* maxWorldCol;
-    final int WorldHeight=tileSize*maxWorldRow;
-    TileManager tileManager=new TileManager(this);
+
+    //SCREEN SETTINGS
+    final int originalTileSize = 16;  //16*16 tile
+    final int scale =3;
+    public final int tileSize=originalTileSize*scale;  //48*48 tile
+    public final int maxScreenCol=16;
+    public final int maxScreenRow=12;
+    public final int screenWidth=tileSize* maxScreenCol;//16*48 pixels
+    public final int screenHeight=tileSize*maxScreenRow;//12*48 pixels
+
+    //WORLD SETTINGS
+    public final int maxWorldCol=50;
+    public final int maxWorldRow=50;
+    public final int worldWidth  = tileSize*maxWorldCol;
+    public final int worldHeight  = tileSize*maxWorldRow;
+
+
+
+    public TileManager tileManager=new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread;
+    Thread gameThread; //when we start gameThread it's automaticaly calls the run method
+
     public CollisionChecker cChecker=new CollisionChecker(this);
-    public AssetSetter asetter=new assetSetter(this);
     public Player player = new Player(this,keyHandler);
     public SuperObject obj[]=new SuperObject[10];
+    public AssetSetter asetter=new AssetSetter(this);
+
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true);
+        this.setDoubleBuffered(true);//enabling this can improve game's rendering performance
         this.addKeyListener(keyHandler);
-        this.setFocusable(true);
+        this.setFocusable(true);//with this, this GamePanel can be "focused" to receive key input
 
     }
-    public void setupGame(){
-        asetter.setObject();
-    }
-    public void startGameTread(){
+
+    public void startGameTread(){  //for starting the game thread
         gameThread = new Thread(this);
-        gameThread.start();
+        gameThread.start(); //automatically call the run method
     }
+
     @Override
     /*public void run() {
         double drawInterval = 1000000000.0/60;
@@ -53,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }*/
     public void run() {
-        double drawInterval = 1000000000.0 / 60;
+        double drawInterval = 1000000000.0/60; // we can draw screen 60 time by second (each 0.01666 seconds)
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -71,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable{
             if(timer>=1000000000) timer=0;
         }
     }
+
     public void update(){
         player.update();
     }
@@ -80,10 +95,22 @@ public class GamePanel extends JPanel implements Runnable{
         tileManager.draw(g2);
         for(int i=0;i<obj.length;i++){
             if(obj[i]!=null){
-                obj[i].draw(g2,this)
-            }
-        }
+               obj[i].draw(g2,this);
+           }
+         }
+        tileManager.draw(g2);
         player.draw(g2);
         g2.dispose();
     }
+
+
+
+
+
+    public void setupGame(){
+        asetter.setObject();
+    }
+
+
+
 }

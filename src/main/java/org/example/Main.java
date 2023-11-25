@@ -12,11 +12,12 @@ public class Main {
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
-
         window.pack();
 
-        window.setLocationRelativeTo(null);
+        window.setLocationRelativeTo(null); //not specify the location of the window = the window will be displayed at the center of the screen
         window.setVisible(true);
+
+
         gamePanel.setupGame();
         gamePanel.startGameTread();
     }
