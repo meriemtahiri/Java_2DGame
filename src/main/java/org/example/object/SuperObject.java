@@ -1,6 +1,7 @@
 package org.example.object;
 
 import org.example.GamePanel;
+import org.example.UtilityTool;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -14,6 +15,8 @@ public class SuperObject{
     public int solidAreaDefaultX=0;
     public int solidAreaDefaultY=0;
     public Rectangle solidArea= new Rectangle(0,0,48,48);
+
+    UtilityTool uTool = new UtilityTool();
 
     public void draw(Graphics2D g2 , GamePanel gp){
         int screenX=worldX- gp.player.worldX+gp.player.screenX;
