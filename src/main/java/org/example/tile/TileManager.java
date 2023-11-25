@@ -4,6 +4,7 @@ import org.example.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class TileManager {
@@ -22,7 +23,13 @@ public class TileManager {
     public void getTileImages(){
         try {
             tiles[0]=new Tile();
-            tiles[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass00.png"));
+            tiles[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass01.png"));
+
+            BufferedImage scaledImage = new BufferedImage(gamePanel.tileSize, gamePanel.tileSize,tiles[0].image.getType());
+            Graphics2D g2=scaledImage.createGraphics();
+            g2.drawImage(tiles[0].image,0,0, gamePanel.tileSize,gamePanel.tileSize,null);
+            tiles[0].image =scaledImage;
+
             tiles[1]=new Tile();
             tiles[1].image= ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
             tiles[1].collision=true;
