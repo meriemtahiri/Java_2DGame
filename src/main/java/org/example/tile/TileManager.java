@@ -14,7 +14,7 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
-        mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+        mapTileNum = new int[gamePanel.maxWorldRow][gamePanel.maxWorldCol];
         getTileImages();
         readMapFile("/maps/world01.txt");
     }
