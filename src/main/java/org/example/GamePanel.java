@@ -25,15 +25,19 @@ public class GamePanel extends JPanel implements Runnable{
     public final int worldHeight  = tileSize*maxWorldRow;
 
 
-
+    //SYSTEM
     public TileManager tileManager=new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
+    Sound sound = new Sound();
     Thread gameThread; //when we start gameThread it's automaticaly calls the run method
 
     public CollisionChecker cChecker=new CollisionChecker(this);
+    public AssetSetter asetter=new AssetSetter(this);
+
+    //ENTITY AND OBJECT
     public Player player = new Player(this,keyHandler);
     public SuperObject obj[]=new SuperObject[10];
-    public AssetSetter asetter=new AssetSetter(this);
+
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -42,6 +46,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyHandler);
         this.setFocusable(true);//with this, this GamePanel can be "focused" to receive key input
 
+    }
+
+    public void setupGame(){
+        asetter.setObject();
+        playMusic(0);
     }
 
     public void startGameTread(){  //for starting the game thread
@@ -72,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
+        int drawCount =0;
         while (gameThread != null) {
             currentTime=System.nanoTime();
             delta+=(currentTime-lastTime)/drawInterval;
@@ -81,8 +91,13 @@ public class GamePanel extends JPanel implements Runnable{
                 update();
                 repaint(); // that's how we can call the paintComponent methode!!
                 delta--;
+                drawCount++;
             }
-            if(timer>=1000000000) timer=0;
+            if(timer>=1000000000){
+                System.out.println("FPS:" + drawCount);
+                drawCount=0;
+                timer=0;
+            }
         }
     }
 
@@ -98,18 +113,30 @@ public class GamePanel extends JPanel implements Runnable{
                obj[i].draw(g2,this);
            }
          }
-        tileManager.draw(g2);
+        //tileManager.draw(g2);
         player.draw(g2);
         g2.dispose();
     }
 
 
+public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+
+}
+
+public void stopMusic(){
+        sound.stop();
+}
+
+public void playSE(int i){  //sound effect
+      sound.setFile(i);
+      sound.play();
+}
 
 
 
-    public void setupGame(){
-        asetter.setObject();
-    }
 
 
 
