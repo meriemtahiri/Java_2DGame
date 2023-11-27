@@ -11,17 +11,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity{
-    GamePanel gp;
     KeyHandler kh;
     public int screenX;
     public int screenY;
     // public int hasKey=0;
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
-        this.gp = gamePanel;
+        super(gamePanel);
         this.kh = keyHandler;
 
-        screenX=gp.screenWidth/2 - (gp.tileSize/2);
-        screenY=gp.screenHeight/2 - (gp.tileSize/2);
+        screenX=gamePanel.screenWidth/2 - (gamePanel.tileSize/2);
+        screenY=gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
 
         solidArea = new Rectangle();
         solidArea.x=8;
@@ -34,52 +33,42 @@ public class Player extends Entity{
         getPlayerImages();
     }
     public void setDefaultValue(){
-        worldX=gp.tileSize * 23;   //player's strating position on the world map
-        worldY=gp.tileSize * 21;
+        worldX=gamePanel.tileSize * 23;   //player's strating position on the world map
+        worldY=gamePanel.tileSize * 21;
         speed=4;
         direction="down";
     }
     public void getPlayerImages(){
 
-        up1 = setup("boy_up_1");
-        up2 = setup("boy_up_2");
-        down1 = setup("boy_down_1");
-        down2 = setup("boy_down_2");
-        left1 = setup("boy_left_1");
-        left2 = setup("boy_left_2");
-        right1 = setup("boy_right_1");
-        right2 = setup("boy_right_2");
+        up1 = setup("/player/boy_up_1");
+        up2 = setup("/player/boy_up_2");
+        down1 = setup("/player/boy_down_1");
+        down2 = setup("/player/boy_down_2");
+        left1 = setup("/player/boy_left_1");
+        left2 = setup("/player/boy_left_2");
+        right1 = setup("/player/boy_right_1");
+        right2 = setup("/player/boy_right_2");
 
-    }
-
-    public BufferedImage setup(String imageName){
-
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try{
-           image = ImageIO.read(getClass().getResource("/player/"+imageName+".png"));
-            image =uTool.scaleImage(image,gp.tileSize, gp.tileSize);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return image;
     }
 
     public void update(){
         if(kh.leftPressed || kh.downPressed || kh.upPressed || kh.rightPressed){
-            if(kh.upPressed){ direction="up" ;worldY -= speed;;}
-            else if(kh.downPressed){ direction="down"; worldY += speed;}
-            else if(kh.leftPressed){ direction="left"; worldX -= speed;}
-            else if(kh.rightPressed){ direction="right"; worldX += speed; }
+            if(kh.upPressed){ direction="up" ;}
+            else if(kh.downPressed){ direction="down"; }
+            else if(kh.leftPressed){ direction="left"; }
+            else if(kh.rightPressed){ direction="right"; }
 
             //CHECK TILE COLLISION
             collisionOn=false;
-            gp.cChecker.checkTile(this);
+            gamePanel.cChecker.checkTile(this);
 
             //CHECK OBJECT COLLISION
-            int objIndex=gp.cChecker.checkObject(this,true);
+            int objIndex=gamePanel.cChecker.checkObject(this,true);
             pickupObject(objIndex);
+
+            //CHECK NPC COLLISION
+            int npcIndex=gamePanel.cChecker.checkEntity(this,gamePanel.npc);
+            inyeractNPC(npcIndex);
 
             if(collisionOn==false){
                 switch (direction){
@@ -111,6 +100,11 @@ public class Player extends Entity{
 
 
     public void pickupObject(int i){
+        if(i!=999){
+
+        }
+    }
+    public void inyeractNPC(int i){
         if(i!=999){
 
         }
