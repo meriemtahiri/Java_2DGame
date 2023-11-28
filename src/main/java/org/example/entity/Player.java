@@ -2,19 +2,14 @@ package org.example.entity;
 
 import org.example.GamePanel;
 import org.example.KeyHandler;
-import org.example.UtilityTool;
 
-import javax.imageio.IIOException;
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity{
     KeyHandler kh;
     public int screenX;
     public int screenY;
-    // public int hasKey=0;
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
         this.kh = keyHandler;
@@ -106,8 +101,12 @@ public class Player extends Entity{
     }
     public void inyeractNPC(int i){
         if(i!=999){
-
+            if(gamePanel.keyHandler.enterPressed) {
+                gamePanel.gameState=gamePanel.dialogueState;
+                gamePanel.npc[i].speack();
+            }
         }
+        gamePanel.keyHandler.enterPressed=false;
     }
     public void draw(Graphics2D g){
         //g.setColor(Color.WHITE);
