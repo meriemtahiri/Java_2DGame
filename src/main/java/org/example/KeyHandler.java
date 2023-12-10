@@ -21,6 +21,71 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        //TITLE SATATE
+        if(gamePanel.gameState==gamePanel.titleState){
+            if(gamePanel.ui.titleScreenState==0){
+                if(code == KeyEvent.VK_UP) {
+                    gamePanel.ui.commandNum--;
+                    if(gamePanel.ui.commandNum<0){
+                        gamePanel.ui.commandNum=2;
+                    }
+                }
+                if(code == KeyEvent.VK_DOWN) {
+                    gamePanel.ui.commandNum++;
+                    if(gamePanel.ui.commandNum>2){
+                        gamePanel.ui.commandNum=0;
+                    }
+                }
+                if(code==KeyEvent.VK_ENTER){
+                    if(gamePanel.ui.commandNum==0){
+                        gamePanel.ui.titleScreenState=1;
+                        gamePanel.playMusic(0);
+                    }
+                    if(gamePanel.ui.commandNum==1){
+
+                    }
+                    if(gamePanel.ui.commandNum==2){
+                        System.exit(0);
+                    }
+                }
+            }
+            else if(gamePanel.ui.titleScreenState==1){
+                if(code == KeyEvent.VK_UP) {
+                    gamePanel.ui.commandNum--;
+                    if(gamePanel.ui.commandNum<0){
+                        gamePanel.ui.commandNum=3;
+                    }
+                }
+                if(code == KeyEvent.VK_DOWN) {
+                    gamePanel.ui.commandNum++;
+                    if(gamePanel.ui.commandNum>3){
+                        gamePanel.ui.commandNum=0;
+                    }
+                }
+                if(code==KeyEvent.VK_ENTER){
+                    if(gamePanel.ui.commandNum==0){
+                        System.out.println("Do some fighter specific stuff!");
+                        gamePanel.gameState=gamePanel.playState;
+                        gamePanel.playMusic(0);
+                    }
+                    if(gamePanel.ui.commandNum==1){
+                        System.out.println("Do some thief specific stuff!");
+                        gamePanel.gameState=gamePanel.playState;
+                        gamePanel.playMusic(0);
+                    }
+                    if(gamePanel.ui.commandNum==2){
+                        System.out.println("Do some sorcerer specific stuff!");
+                        gamePanel.gameState=gamePanel.playState;
+                        gamePanel.playMusic(0);
+                    }
+                    if(gamePanel.ui.commandNum==3){
+                        gamePanel.ui.titleScreenState=0;
+
+                    }
+                }
+            }
+
+        }
         if(gamePanel.gameState==gamePanel.playState){
 
             if(code == KeyEvent.VK_UP) upPressed=true;

@@ -21,7 +21,9 @@ public class Entity {
     public int actionLookCont = 0;
     String[] dialogues = new String[20];
     int dialogueIndex;
-
+    //CARACTER STATUS
+    public int maxLife;
+    public int life;
     public Entity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
