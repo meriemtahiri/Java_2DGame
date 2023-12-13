@@ -144,22 +144,24 @@ public class GamePanel extends JPanel implements Runnable{
         }
         //OTHERS
         else {
+            //TILE
             tileManager.draw(g2);
 
-            //OBJECT
-            for(int i=0;i<obj.length;i++){
-                if(obj[i]!=null){
-                    obj[i].draw(g2,this);
+            //ADD ENTITIES TO THE LIST
+            entityList.add(player);
+
+            for(int i=0;i<npc.length; i++){
+                if(npc[i] != null){
+                    entityList.add(npc[i]);
                 }
             }
-            //NPC
-            for(int i = 0 ; i<npc.length ; i++){
-                if(npc[i]!=null){
-                    npc[i].draw(g2);
+            for(int i= 0; i <obj.length; i++ ){
+                if(obj[i] != null){
+                    entityList.add(obj[i]);
                 }
             }
-            //tileManager.draw(g2);
-            player.draw(g2);
+
+
             //UI
             ui.draw(g2);
         }
