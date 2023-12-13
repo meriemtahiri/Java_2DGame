@@ -12,7 +12,7 @@ public class Entity {
     GamePanel gamePanel;
     public int worldX, worldY, speed;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2; // it describes an Image with an accessible buffer of image data.(we use this to store our image files)
-    public String direction;
+    public String direction = "down";
     public int spriteCounter=0;
     public int spriteNum=1;
     public Rectangle solidArea = new Rectangle(0,0,48,48);
@@ -20,6 +20,11 @@ public class Entity {
     public boolean collisionOn=false;
     public int actionLookCont = 0;
     String[] dialogues = new String[20];
+
+    public BufferedImage image,image2,image3;
+    public String name;
+    public boolean collision=false;
+
     int dialogueIndex;
     //CARACTER STATUS
     public int maxLife;

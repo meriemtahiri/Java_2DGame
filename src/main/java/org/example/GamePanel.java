@@ -2,11 +2,11 @@ package org.example;
 
 import org.example.entity.Entity;
 import org.example.entity.Player;
-import org.example.object.SuperObject;
 import org.example.tile.TileManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -40,8 +40,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     //ENTITY AND OBJECT
     public Player player = new Player(this,keyHandler);
-    public SuperObject[] obj =new SuperObject[10];
+    public Entity[] obj =new Entity[10];
     public Entity[] npc = new Entity[10];
+
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     //GAME STATE
     public int gameState;
@@ -121,7 +123,9 @@ public class GamePanel extends JPanel implements Runnable{
             for (int i=0 ; i<npc.length ; i++)
                 if(npc[i]!=null) npc[i].update();
         }
-        if(gameState==pauseState){}
+        if(gameState==pauseState){
+            //nothing
+        }
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);

@@ -1,12 +1,10 @@
 package org.example;
 
+import org.example.entity.Entity;
 import org.example.object.OBJ_Heart;
-import org.example.object.SuperObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.text.DecimalFormat;
 
 public class UI {
     GamePanel gp;
@@ -26,7 +24,7 @@ public class UI {
         arial_80B = new Font("Arial",Font.BOLD,80);
 
         //CREATE HUB OBJECT
-        SuperObject heart=new OBJ_Heart(gp);
+        Entity heart=new OBJ_Heart(gp);
         heart_full=heart.image;
         heart_half=heart.image2;
         heart_blank=heart.image3;
@@ -46,16 +44,23 @@ public class UI {
         graphics2D.setFont(arial_40);
         graphics2D.setColor(Color.WHITE);
 
+        //TITLE STATE
         if (gp.gameState==gp.titleState){
             drawTitleScreen();
         }
+
+        //PLAY STATE
         if(gp.gameState==gp.playState){
                drawPlayerLife();
         }
+
+        //PAUSE STATE
         if(gp.gameState==gp.pauseState){
             drawPlayerLife();
             drawPauseScreen();
         }
+
+        //DIALOGUE STATE
         if(gp.gameState==gp.dialogueState){
             drawPlayerLife();
             drawDialogueScreen();

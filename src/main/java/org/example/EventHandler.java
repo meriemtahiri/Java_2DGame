@@ -5,7 +5,7 @@ import org.example.GamePanel;
 import java.awt.*;
 
 public class EventHandler {
-    GamePanel gp;
+   GamePanel gp;
    EventRect eventRect[][];
    int previousEventX,previousEventY;
    boolean canTouchEvent=true;
