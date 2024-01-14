@@ -1,0 +1,24 @@
+.root {
+    -fx-background-color: #1c1c1c; /* Gris anthracite pour la couleur de fond de la fenêtre */
+}
+
+.start-button, .quit-button {
+    -fx-font-family: "Impact", sans-serif;
+    -fx-font-size: 24px; /* Ajustez la taille de la police des boutons */
+    -fx-padding: 10px 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #4CAF50; /* Couleur verte pour la couleur de fond des boutons */
+    -fx-border-radius: 5px;
+    -fx-border-color: #45a049;
+}
+.titre{
+    -fx-font-family: "Impact";
+    -fx-font-size: 60px; /* Ajustez la taille de la police des boutons */
+    -fx-padding: 10px 20px;
+    -fx-text-fill: black;
+    -fx-letter-spacing: 10px;
+}
+.start-button:hover, .quit-button:hover {
+    -fx-background-color: #45a049;
+    -fx-cursor: hand; /* Changez le curseur au survol pour indiquer qu'il est cliquable */
+}

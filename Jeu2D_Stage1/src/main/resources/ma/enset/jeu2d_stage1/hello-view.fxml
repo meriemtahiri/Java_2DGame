@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.BorderPane?>
+
+<Pane opacity="0.85" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.enset.jeu2d_stage1.HelloController">
+   <children>
+   
+       <!-- Image de Garde (Background) -->
+       <ImageView fitHeight="600" fitWidth="800">
+           <image>
+               <Image url="@../img/ng.jpg" />
+           </image>
+       </ImageView>
+   
+           <BorderPane>
+               <center>
+                   <VBox alignment="CENTER" prefHeight="582.0" prefWidth="752.0" spacing="20" style="-fx-background-color: transparent;">
+                      <children>
+      
+                          <!-- Title -->
+                          <Text  style=" -fx-font-weight: bold;" styleClass="titre" text="THE GIRL WARROIR">
+                     <VBox.margin>
+                        <Insets bottom="30.0" left="50.0" right="50.0" top="50.0" />
+                     </VBox.margin>
+                  </Text>
+      
+                          <!-- Buttons -->
+                          <VBox alignment="CENTER" spacing="10">
+         <children>
+                                 <Button styleClass="start-button"   onAction="#startGame" text="Start The Game" />
+                                 <Button styleClass="quit-button"   onAction="#terminate" text="Leave" />
+         </children>
+                          </VBox>
+                      </children>
+   
+                   </VBox>
+               </center>
+           </BorderPane>
+   </children>
+
+</Pane>
