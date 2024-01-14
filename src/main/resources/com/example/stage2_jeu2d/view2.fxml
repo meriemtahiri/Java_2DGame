@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<Pane opacity="0.85" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stage2_jeu2d.HelloController">
+  <children>
+
+    <!-- Image de Garde (Background) -->
+    <ImageView fitHeight="600" fitWidth="800">
+      <image>
+        <Image url="@img/ng.jpg" />
+      </image>
+    </ImageView>
+
+    <BorderPane>
+      <center>
+        <VBox alignment="CENTER" prefHeight="582.0" prefWidth="752.0" spacing="20" style="-fx-background-color: transparent;">
+          <children>
+
+            <!-- Title -->
+            <Text  style=" -fx-font-weight: bold;" styleClass="titre" text="THE GIRL WARROIR">
+              <VBox.margin>
+                <Insets bottom="30.0" left="50.0" right="50.0" top="50.0" />
+              </VBox.margin>
+            </Text>
+
+            <!-- Buttons -->
+            <VBox alignment="CENTER" spacing="10">
+              <children>
+                <Button styleClass="stage2-button"   onAction="#StartStage2" text="Next Stage" />
+                <Button styleClass="stage1-button"   text="Same Stage" />
+                <Button styleClass="quit-button"   onAction="#terminate" text="Leave" />
+              </children>
+            </VBox>
+          </children>
+
+        </VBox>
+      </center>
+    </BorderPane>
+  </children>
+
+</Pane>
