@@ -9,7 +9,7 @@ public class Sound {
     Clip clip;
     URL soundURL[]=new URL[30];
     public Sound() {
-        soundURL[0] = getClass().getResource("/ma/enset/sound/BlueBoyAdventure2.wav");
+        soundURL[0] = getClass().getResource("/ma/enset/sound/GirlAdventure.wav");
         soundURL[1] = getClass().getResource("/ma/enset/sound/coin.wav");
         soundURL[2] = getClass().getResource("/ma/enset/sound/powerup.wav");
         soundURL[3] = getClass().getResource("/ma/enset/sound/unlock.wav");
